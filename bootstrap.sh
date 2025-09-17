@@ -1,8 +1,11 @@
 #!/bin/bash
 
+# Install Kind
+kind create cluster --config cluster.yml
+
 # Install Ingress Controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
-# Install and Deploy Helm Chart
-helm install todoapp
+# Deploy Helm Chart an Dependencies
 helm upgrade todoapp helm-chart/todoapp -n default
+helm dependency build
